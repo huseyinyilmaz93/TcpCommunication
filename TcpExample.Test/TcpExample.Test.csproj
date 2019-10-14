@@ -54,5 +54,11 @@
       <Version>12.0.2</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TcpExample.Core\TcpExample.Core.csproj">
+      <Project>{1BD8362D-565E-4C83-903B-27CE1A64B867}</Project>
+      <Name>TcpExample.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

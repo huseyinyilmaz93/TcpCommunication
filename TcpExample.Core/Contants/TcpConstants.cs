@@ -9,5 +9,7 @@
         public const string TCP_SERVER_ADDRESS = "127.0.0.1";
 
         public const short TCP_SERVER_PORT = 10001;
+
+        public const int MAX_CONNECTION = 2;
     }
 }
