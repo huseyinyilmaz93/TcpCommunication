@@ -1,0 +1,6 @@
+C:\Users\huseyin.yilmaz\source\repos\TcpExample\TcpExample.Core\bin\Debug\netstandard2.0\TcpExample.Core.deps.json
+C:\Users\huseyin.yilmaz\source\repos\TcpExample\TcpExample.Core\bin\Debug\netstandard2.0\TcpExample.Core.dll
+C:\Users\huseyin.yilmaz\source\repos\TcpExample\TcpExample.Core\obj\Debug\netstandard2.0\TcpExample.Core.csprojAssemblyReference.cache
+C:\Users\huseyin.yilmaz\source\repos\TcpExample\TcpExample.Core\obj\Debug\netstandard2.0\TcpExample.Core.csproj.CoreCompileInputs.cache
+C:\Users\huseyin.yilmaz\source\repos\TcpExample\TcpExample.Core\obj\Debug\netstandard2.0\TcpExample.Core.AssemblyInfoInputs.cache
+C:\Users\huseyin.yilmaz\source\repos\TcpExample\TcpExample.Core\obj\Debug\netstandard2.0\TcpExample.Core.AssemblyInfo.cs
