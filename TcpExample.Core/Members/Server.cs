@@ -1,19 +1,21 @@
-﻿using System.Collections.Generic;
-using System.Net;
-using System.Net.Sockets;
+﻿using System.Net;
 using System.Threading;
-using System.Threading.Tasks;
+using System.Net.Sockets;
 using TcpExample.Core.Base;
+using System.Threading.Tasks;
 using TcpExample.Core.Contants;
 using TcpExample.Core.Interfaces;
+using System.Collections.Generic;
 
 namespace TcpExample.Core.Members
 {
     public class Server : ATcpEndPoint, IServer
     {
+        public static object locker = new object();
+
         public IList<ATcpEndPoint> Clients { get; set; }
 
-        private CancellationTokenSource AcceptConnectionCancellationTokenSource = new CancellationTokenSource();
+        private CancellationTokenSource AcceptConnectionCancellationTokenSource { get; set; }
 
         private CancellationToken AcceptConnectionCancellationToken { get; set; }
 
@@ -31,19 +33,34 @@ namespace TcpExample.Core.Members
             TcpSocket.Listen(TcpConstants.MAX_CONNECTION);
         }
 
-        public void StartListening()
+        public async void StartListening()
         {
+            AcceptConnectionCancellationTokenSource = new CancellationTokenSource();
+            AcceptConnectionCancellationToken = AcceptConnectionCancellationTokenSource.Token;
             while (AcceptConnectionCancellationToken.IsCancellationRequested == false)
             {
                 Socket clientSocket = TcpSocket.Accept();
-                Task.Factory.StartNew(() => CreateNewInstance(clientSocket));
+                Client client = await CreateNewInstance(clientSocket);
+                Task.Factory.StartNew(() => base.ReceiveMessage()).ContinueWith(client.CommandReceived);
             }
         }
 
-        private void CreateNewInstance(Socket clientSocket)
+        private async Task<Client> CreateNewInstance(Socket clientSocket)
         {
             Client client = new Client(clientSocket);
-            Clients.Add(client);
+            lock (locker)
+            {
+                Clients.Add(client);
+            }
+            return await Task.FromResult(client);
+        }
+
+        public void Disconnect(Client client)
+        {
+            lock (locker)
+            {
+                Clients.Remove(client);
+            }
         }
 
         public void StopListening()
